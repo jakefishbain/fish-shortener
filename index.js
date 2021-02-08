@@ -1,23 +1,12 @@
 require('dotenv').config();
 
 mongoose = require('mongoose');
-// pn4QA8oBSXc5L241
 const DATABASE = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@fish-shortener.duwrc.mongodb.net/fish-shortener?retryWrites=true&w=majority`
 
-// const DATABASE = 'mongodb://127.0.0.1:27017/'
 mongoose.connect(DATABASE, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://jakefish:pn4QA8oBSXc5L241@fish-shortener.duwrc.mongodb.net/fish-shortener?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
 
 mongoose.connection.on('error', (err) => {
   console.log("Mongoose Connection error" + err.message);
@@ -77,7 +66,7 @@ app.get('/:route', async (req, res) => {
   if(instance) {
     instance.visitors = instance.visitors + 1;
     await instance.save();
-    res.redirect(`//${instance.url}`)
+    res.redirect(`${instance.url}`)
   } else {
     res.send("404")
   }
